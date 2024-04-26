@@ -10,8 +10,8 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<Loginpage/>}/>
-        <Route path='/signup' element={<Signup/>}/>
+        <Route path='/codeketch/' element={<Loginpage/>}/>
+        <Route path='/codeketch/signup/' element={<Signup/>}/>
       </Routes>
     </Router>
   )
