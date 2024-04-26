@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-
+import logo from '../assets/icon.png';
 
 const Signup=()=>{
 
@@ -28,66 +28,77 @@ const Signup=()=>{
       const handleConfirmPasswordChange = (e) => {
         setCPassword(e.target.value);
       };
-     
     
       const handleLogin = (e) => {
         e.preventDefault(); 
         console.log(`your Firstname: ${fname} and lastname :${lname} password: ${password}  cpassword: ${cpassword}`);
     
         // Reset form fields after login attempt
-       
-         setFname('');
-         setLname('');
+        setFname('');
+        setLname('');
         setPassword('');
         setCPassword('');
     };
 
     return(
-
-        <form onSubmit={handleLogin} className='flex column'>
+      <div className='flex center'>
+        <div className='content-box'>
+          <div className='flex left' id='brand-icon'>
+              <img src={logo} alt="My Icon" />      
+          </div>
+          <form onSubmit={handleLogin} className='submitform flex column'>
         {/* Username Input */}
         
-        <input
-            className='input-box'
-          type="email"
-          placeholder="Email@gmail.com"
-          value={email}
-          onChange={handleEmailChange}
-        />
-
-        <input
-            className='input-box'
-            type="Firstname"
-            placeholder="First name"
-            value={fname}
-            onChange={handleFirstnameChange}
-            />
-        <input
-            className='input-box'
-            type="Lastname"
-            placeholder="Last name"
-            value={lname}
-            onChange={handleLastnameChange}
+            <input
+              className='input-box poppins-light'
+              type="email"
+              placeholder="Email@gmail.com"
+              value={email}
+              onChange={handleEmailChange}
             />
 
-        {/* Password Input */}
-        <input
-          className='input-box'
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={handlePasswordChange}
-        />
+            <div className='flex row'>
+              <input
+                  className='input-box poppins-light'
+                  type="Firstname"
+                  placeholder="First name"
+                  value={fname}
+                  onChange={handleFirstnameChange}
+                  />
+              <input
+                  className='input-box poppins-light'
+                  type="Lastname"
+                  placeholder="Last name"
+                  value={lname}
+                  onChange={handleLastnameChange}
+                  />
+            </div>
+            
 
-        <input
-          className='input-box'
-          type="password"
-          placeholder="Confirm Password"
-          value={cpassword}
-          onChange={handleConfirmPasswordChange}
-        />
+            {/* Password Input */}
+            <input
+              className='input-box poppins-light'
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={handlePasswordChange}
+            />
 
-        </form>
+            <input
+              className='input-box poppins-light'
+              type="password"
+              placeholder="Confirm Password"
+              value={cpassword}
+              onChange={handleConfirmPasswordChange}
+            />
+
+            <button className='button login poppins-medium'>Create Account</button>
+
+          </form>
+        </div>
+      </div>
+
+        
     );
 
 } ;

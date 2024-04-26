@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react'; 
+
 import logo from '../assets/icon.png';
-import brand from '../assets/codeketch.png';
 import git from '../assets/git.png';
-import { Link } from 'react-router-dom';
+
+
 const LoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -16,7 +17,8 @@ const LoginForm = () => {
   };
 
   const handleLogin = (e) => {
-    e.preventDefault(); // Prevent form submission (default behavior)
+    // Prevent form submission (default behavior)
+    e.preventDefault(); 
     
     // Implement your login logic here (e.g., API call)
     console.log(`Logging in with username: ${username} and password: ${password}`);
@@ -33,11 +35,11 @@ const LoginForm = () => {
               <img src={logo} alt="My Icon" />      
           </div>
 
-          <form onSubmit={handleLogin} className='flex column'>
+          <form onSubmit={handleLogin} className='loginform flex column'>
             {/* Username Input */}
             <h3>Sign In</h3>
             <input
-                className='input-box poppins-light'
+              className='input-box poppins-light'
               type="email"
               placeholder="Email / Username"
               value={username}
@@ -46,7 +48,7 @@ const LoginForm = () => {
 
             {/* Password Input */}
             <input
-            className='input-box poppins-light'
+              className='input-box poppins-light'
               type="password"
               placeholder="Password"
               value={password}
@@ -59,7 +61,7 @@ const LoginForm = () => {
                 <button className='button login poppins-medium'>Login</button>
               </div>
             <div className='smalltext flex right'>
-                <p>Don't have any account? <a href="#" className='link'>Create one</a></p>
+                <p>Don't have any account? <a href="/signup" className='link'>Create one</a></p>
             </div>
             <div className='flex row center seperation-line'>
               <span id='line1'></span>
@@ -69,10 +71,7 @@ const LoginForm = () => {
             <button className='button github flex center poppins-medium'> 
               <img src={git} alt="Git" id='giticon'/> Login with GitHub
             </button>
-
           </form>
-     
-      
       </div>
     </div>
   );

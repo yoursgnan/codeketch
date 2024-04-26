@@ -9,8 +9,6 @@
   --skyblue: skyblue;
   --darkskyblue: #00D1FF;
   --grey: #F0F0F0;
- 
- 
 }
 
 .poppins-light {
@@ -53,6 +51,10 @@
 }
 p,h3 {
   margin: 0px;
+}
+
+.loginform > h3 {
+  color: var(--light-black);
 }
 
 
