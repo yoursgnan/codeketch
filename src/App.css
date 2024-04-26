@@ -1,42 +1,165 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  --black: #000000;
+  --light-black: #263238;
+  --white: #ffffff;
+  --shadow-color:rgba(52, 54, 72, 0.25);
+  --darkblue: #270179;
+  --skyblue: skyblue;
+  --darkskyblue: #00D1FF;
+  --grey: #F0F0F0;
+}
+
+.poppins-light {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+.poppins-medium {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+.poppins-bold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+.container{
+  display :flex;
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  font-family: "Poppins", sans-serif;
+}
+
+.content-box {
   padding: 2rem;
-  text-align: center;
+  border-radius: 6px;
+  box-shadow: 1px 2px 8px var(--shadow-color); /* Border shadow effect */
+  background-color: var(--white);
+  min-width: 0%;
+  max-width: 90%;
+  min-height: 0%;
+  max-height:75%;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.link{
+ margin-left: auto;
+ color: var(--darkblue);
+
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+p,h3 {
+  margin: 0px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.loginform > h3 {
+  color: var(--light-black);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+
+.login-form-container {
+  display: flex;
+  flex-direction: column;
+  gap:0.5rem;
+}
+.input-box{
+  padding: 0.6rem;
+  border: solid 1.5px transparent;
+  border-radius: 0.4rem;
+  background: var(--grey);
+}
+.input-box:focus{
+  background: var(--white);
+}
+:hover.input-box{
+  border-color: var(--skyblue);
 }
 
-.card {
-  padding: 2em;
+.flex {
+  display: flex;
+  gap:0.5rem;
 }
 
-.read-the-docs {
-  color: #888;
+.row{
+  flex-direction: row;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.center{
+  justify-content: center;
+  align-items: center;
+}
+
+.left{
+  justify-content: flex-start;
+}
+
+.right{
+  justify-content: flex-end;
+}
+.middle{
+  display: flex;
+  flex-direction: row;
+  margin-left: 2%;
+  justify-content: center;
+  align-items: center;
+}
+#brand-icon{
+  margin-bottom: 2rem;
+}
+
+#brand-icon > img{
+  max-width: 45%;
+}
+
+
+.button{
+  height: 2.5rem;
+  border: solid transparent;
+  border-radius: 0.4rem;
+  cursor: pointer;
+}
+
+.login{
+  background: var(--darkskyblue);
+  color: var(--white);
+  font-weight: bold;
+}
+
+.button:active{
+  opacity: 0.8;
+}
+
+
+
+#line1{
+  width: 50%;
+  background-color: var(--grey);
+  height: 1px;
+  /* margin:0 5px; */
+  
+}
+
+.seperation-line{
+  color:var(--grey);
+  font-size: 0.8rem;
+}
+#giticon{
+ width: 1.5rem;
+ /* height: 1.5rem; */
+
+}
+
+.github{
+  background-color: var(--light-black);
+  color: var(--white);
+  /* font-family: 'monospace'; */
+}
+
+.smalltext{
+  font-size: 0.8rem;
 }
