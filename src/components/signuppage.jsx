@@ -48,7 +48,7 @@ const Signup=()=>{
           </div>
           <form onSubmit={handleLogin} className='submitform flex column'>
         {/* Username Input */}
-        
+            <h3>Signup</h3>
             <input
               className='input-box poppins-light'
               type="email"
@@ -57,7 +57,7 @@ const Signup=()=>{
               onChange={handleEmailChange}
             />
 
-            <div className='flex row'>
+            <div className='flex row wrap'>
               <input
                   className='input-box poppins-light'
                   type="Firstname"
@@ -91,8 +91,10 @@ const Signup=()=>{
               value={cpassword}
               onChange={handleConfirmPasswordChange}
             />
-
-            <button className='button login poppins-medium'>Create Account</button>
+            <div className="flex">
+              <button className='button login poppins-medium'>Create Account</button>
+            </div>
+            
 
           </form>
         </div>

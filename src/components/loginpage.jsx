@@ -1,7 +1,7 @@
 import { useState } from 'react'; 
 
 import logo from '../assets/icon.png';
-import git from '../assets/git.png';
+import giticon from '../assets/github.svg';
 
 
 const LoginForm = () => {
@@ -54,24 +54,26 @@ const LoginForm = () => {
               value={password}
               onChange={handlePasswordChange}
             />
-
+            <a href='#' className="smalltext link">Forgot Password</a>
             {/* Forgot password*/}
-            <div className="flex column">
-                <a href='#' className="smalltext link">Forgot Password</a>
+            <div className="flex">
                 <button className='button login poppins-medium'>Login</button>
-              </div>
+            </div>
             <div className='smalltext flex right'>
-                <p>Don't have any account? <a href="/signup" className='link'>Create one</a></p>
+                <p>Don't have any account? <a href="/codeketch/signup" className='link'>Create one</a></p>
             </div>
             <div className='flex row center seperation-line'>
               <span id='line1'></span>
               <span>or</span>
               <span id='line1'></span>
             </div>
-            <button className='button github flex center poppins-medium'> 
-              <img src={git} alt="Git" id='giticon'/> Login with GitHub
-            </button>
           </form>
+          <div className='flex'>
+            <button className='button github poppins-medium flex center'> 
+              <img src={giticon} alt="Git" id='giticon' /> Login with GitHub
+            </button>
+          </div>
+          
       </div>
     </div>
   );
