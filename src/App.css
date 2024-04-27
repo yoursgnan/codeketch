@@ -26,11 +26,9 @@
   font-weight: 700;
   font-style: normal;
 }
-.container{
-  display :flex;
-  justify-content: center; /* Center content horizontally */
-  align-items: center; /* Center content vertically */
-  font-family: "Poppins", sans-serif;
+form{
+  margin-bottom: 0.8rem;
+
 }
 
 .content-box {
@@ -38,10 +36,7 @@
   border-radius: 6px;
   box-shadow: 1px 2px 8px var(--shadow-color); /* Border shadow effect */
   background-color: var(--white);
-  min-width: 0%;
-  max-width: 90%;
-  min-height: 0%;
-  max-height:75%;
+ 
 }
 
 .link{
@@ -72,7 +67,7 @@ p,h3 {
 .input-box:focus{
   background: var(--white);
 }
-:hover.input-box{
+.input-box:hover{
   border-color: var(--skyblue);
 }
 
@@ -89,6 +84,10 @@ p,h3 {
   flex-direction: column;
 }
 
+.flex > input,button {
+  flex: 1;
+}
+
 .center{
   justify-content: center;
   align-items: center;
@@ -100,6 +99,9 @@ p,h3 {
 
 .right{
   justify-content: flex-end;
+}
+.wrap{
+  flex-wrap: wrap;
 }
 .middle{
   display: flex;
@@ -113,7 +115,7 @@ p,h3 {
 }
 
 #brand-icon > img{
-  max-width: 45%;
+  max-width: 8rem;
 }
 
 
@@ -138,19 +140,19 @@ p,h3 {
 
 #line1{
   width: 50%;
-  background-color: var(--grey);
+  background-color: var(--light-black);
   height: 1px;
   /* margin:0 5px; */
   
 }
 
 .seperation-line{
-  color:var(--grey);
+  color:var(--light-black);
   font-size: 0.8rem;
 }
 #giticon{
  width: 1.5rem;
- /* height: 1.5rem; */
+
 
 }
 
