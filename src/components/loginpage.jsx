@@ -60,7 +60,7 @@ const LoginForm = () => {
                 <button className='button login poppins-medium'>Login</button>
             </div>
             <div className='smalltext flex right'>
-                <p>Don't have any account? <a href="/codeketch/signup" className='link'>Create one</a></p>
+                <p>Don't have any account? <a href="/signup" className='link'>Create one</a></p>
             </div>
             <div className='flex row center seperation-line'>
               <span id='line1'></span>
