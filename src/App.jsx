@@ -8,7 +8,7 @@ import Signup from './components/signuppage'
 function App() {
 
   return (
-    <Router basename='/codeketch'>
+    <Router>
       <Routes>
         <Route path='/' element={<Loginpage/>} exact />
         <Route  path='/signup' element={<Signup/>}/>
