@@ -9,7 +9,33 @@
   --skyblue: skyblue;
   --darkskyblue: #00D1FF;
   --grey: #F0F0F0;
+
+  --purple: #8A38F5;
+  --notifier-red-color: rgb(255, 174, 174);
+  --notifier-green-color: rgb(115, 240, 202);
+  --notifier-yellow-color: rgb(255, 255, 105);
 }
+
+.notifier {
+  color: var(--light-black);
+  padding: 0.5rem;
+  border-radius: 0.4rem;
+  font-size: 0.8rem;
+  border: var(--notifier-red-color);
+  opacity: 0.8;
+}
+.notifier-red{
+  background: var(--notifier-red-color);
+  
+}
+.notifier-yellow{
+  background: var(--notifier-yellow-color);
+}
+
+.notifier-green{
+  background: var(--notifier-green-color);
+}
+
 
 .poppins-light {
   font-family: "Poppins", sans-serif;
@@ -32,16 +58,18 @@ form{
 }
 
 .content-box {
+  background: linear-gradient(147.38deg, rgba(238, 216, 255, 0.4) -17.41%, rgba(180, 246, 255, 0.4) 131.98%);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(7.9px);
+  /* Note: backdrop-filter has minimal browser support */
+  border-radius: 8px;
   padding: 2rem;
-  border-radius: 6px;
-  box-shadow: 1px 2px 8px var(--shadow-color); /* Border shadow effect */
-  background-color: var(--white);
  
 }
 
 .link{
  margin-left: auto;
- color: var(--darkblue);
+ color: var(--purple);
 
 }
 p,h3 {
@@ -62,11 +90,11 @@ p,h3 {
   padding: 0.6rem;
   border: solid 1.5px transparent;
   border-radius: 0.4rem;
-  background: var(--grey);
-}
-.input-box:focus{
   background: var(--white);
 }
+/* .input-box:focus{
+  background: var(--white);
+} */
 .input-box:hover{
   border-color: var(--skyblue);
 }
@@ -127,7 +155,7 @@ p,h3 {
 }
 
 .login{
-  background: var(--darkskyblue);
+  background: var(--purple);
   color: var(--white);
   font-weight: bold;
 }

@@ -1,21 +1,45 @@
 import { useState } from 'react';
 
-import logo from '../assets/icon.png';
+import { getApiLink, saveKey, USER_IDENTIFIER_KEY } from '../utils/helper_functions';
+
+import Notifier from './notifier';
+import { useNavigate } from 'react-router';
+
+import axios from 'axios';
 
 const Signup=()=>{
 
+    const navigate = useNavigate()
+
     const [email , setEmail]=useState('');
-    const [fname , setFname]=useState('');
+    const [username , setUsername]=useState('');
     const [lname , setLname]=useState('');
     const [password,setPassword]=useState('');
     const [cpassword,setCPassword]=useState('');
+
+    const [notification,setShowNotification] = useState({
+      show: false,
+      message: null,
+      type: null,
+    })
+
+    const showNotification = (notification) => {
+      setShowNotification(notification)
+      setTimeout(()=>{
+        setShowNotification({
+          show: false,
+          message: null,
+          type: null,
+        })
+      },2000)
+    }
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
       };
     
       const handleFirstnameChange = (e) => {
-        setFname(e.target.value);
+        setUsername(e.target.value);
       };
     
       const handleLastnameChange = (e) => {
@@ -29,50 +53,81 @@ const Signup=()=>{
         setCPassword(e.target.value);
       };
     
-      const handleLogin = (e) => {
+      const handleLogin = async(e) => {
         e.preventDefault(); 
-        console.log(`your Firstname: ${fname} and lastname :${lname} password: ${password}  cpassword: ${cpassword}`);
-    
+        console.log(`your username: ${username} and lastname :${lname} password: ${password}  cpassword: ${cpassword}`);
+
+        const data = {
+          email: email,
+          username: username,
+          name: lname,
+          password: password,
+        }
+
+        try {
+          const signup_url = getApiLink() + '/api/create_account'
+          const token = await axios.post(signup_url,data)
+          saveKey(USER_IDENTIFIER_KEY, token)
+          navigate('/dashboard')
+
+        }
+        catch(error){
+          console.log(error)
+          showNotification({
+            type: 'error',
+            message: error.message,
+            show: true
+          })
+        }
+        
+
+
         // Reset form fields after login attempt
-        setFname('');
-        setLname('');
-        setPassword('');
-        setCPassword('');
+        // setUsername('');
+        // setLname('');
+        // setPassword('');
+        // setCPassword('');
     };
 
     return(
       <div className='flex center'>
         <div className='content-box'>
-          <div className='flex left' id='brand-icon'>
+          {/* <div className='flex left' id='brand-icon'>
               <img src={logo} alt="My Icon" />      
-          </div>
+          </div> */}
           <form onSubmit={handleLogin} className='submitform flex column'>
         {/* Username Input */}
-            <h3>Signup</h3>
+            <h2>Codeketch</h2>
+            <h3>Sign up</h3>
+            {
+              notification.show && <Notifier type={notification.type} message={notification.message}/>
+            }
             <input
               className='input-box poppins-light'
               type="email"
-              placeholder="Email@gmail.com"
+              placeholder="Email"
               value={email}
               onChange={handleEmailChange}
             />
 
-            <div className='flex row wrap'>
-              <input
-                  className='input-box poppins-light'
-                  type="Firstname"
-                  placeholder="First name"
-                  value={fname}
-                  onChange={handleFirstnameChange}
-                  />
-              <input
-                  className='input-box poppins-light'
-                  type="Lastname"
-                  placeholder="Last name"
-                  value={lname}
-                  onChange={handleLastnameChange}
-                  />
-            </div>
+            <input
+              className='input-box poppins-light'
+              type="text"
+              placeholder="Username"
+              value={username}
+              onChange={handleFirstnameChange}
+              />  
+
+            
+              
+            <input
+                className='input-box poppins-light'
+                type="text"
+                placeholder="Name"
+                value={lname}
+                onChange={handleLastnameChange}
+                />
+            
             
 
             {/* Password Input */}
