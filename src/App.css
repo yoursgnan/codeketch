@@ -64,6 +64,8 @@ form{
   /* Note: backdrop-filter has minimal browser support */
   border-radius: 8px;
   padding: 2rem;
+  min-width: 23%;
+  max-width: 80%;
  
 }
 
