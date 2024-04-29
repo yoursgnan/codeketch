@@ -4,6 +4,7 @@ import Loginpage from './components/loginpage'
 
 import {BrowserRouter as Router , Routes, Route } from 'react-router-dom'
 import Signup from './components/signuppage'
+import Dashboard from './components/dashboard'
 
 function App() {
 
@@ -12,7 +13,8 @@ function App() {
       <Routes>
         <Route path='/' element={<Loginpage/>} exact />
         <Route  path='/signup' element={<Signup/>}/>
-      </Routes>
+        <Route path='/dashboard' element={<Dashboard/>}/>
+      </Routes> 
     </Router>
   )
 }
