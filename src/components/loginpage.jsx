@@ -62,7 +62,7 @@ const LoginForm = () => {
     try{
       const token = await axios.post(login_post_url,data)
       saveKey(USER_IDENTIFIER_KEY,token)
-      navigate('/dashboard')
+      navigate('/workspace')
     }
     catch(error){
       console.log(error)
@@ -81,7 +81,7 @@ const LoginForm = () => {
   useEffect(()=>{
     const action_login = async() => {
       if(getValue(USER_IDENTIFIER_KEY)){
-        navigate('/dashboard')
+        navigate('/workspace')
       }
     }
 
