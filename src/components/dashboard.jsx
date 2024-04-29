@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router"
+import { useEffect } from "react"
+import { getValue, USER_IDENTIFIER_KEY } from "../utils/helper_functions"
 
 const Dashboard = () => {
     const navigate = useNavigate()
@@ -7,6 +9,19 @@ const Dashboard = () => {
         window.localStorage.clear()
         navigate('/')
     }
+
+    useEffect(()=>{
+        const action_login = async() => {
+            if(!getValue(USER_IDENTIFIER_KEY)){
+            navigate('/')
+            }
+        }
+
+        action_login()
+        
+    },[navigate]) 
+
+
 
     return (
         <div className="flex column center">

@@ -97,6 +97,9 @@ const Signup=()=>{
           </div> */}
           <form onSubmit={handleLogin} className='submitform flex column'>
         {/* Username Input */}
+            
+            <a href="/" className='smalltext link'>Go back to sign in</a>
+            
             <h2>Codeketch</h2>
             <h3>Sign up</h3>
             {

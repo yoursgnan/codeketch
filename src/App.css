@@ -68,11 +68,15 @@ form{
 }
 
 .link{
- margin-left: auto;
+ /* margin-left: auto; */
  color: var(--purple);
 
 }
-p,h3 {
+
+.loginform > .link {
+  margin-left: auto;
+}
+p,h3,h2,h1,a {
   margin: 0px;
 }
 

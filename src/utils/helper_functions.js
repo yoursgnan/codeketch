@@ -10,7 +10,9 @@ const saveKey = (key,value) => {
 const getValue = (key) => {
     return window.localStorage.getItem(key)
 }
+
 const USER_IDENTIFIER_KEY = 'codeketch_token'
+
 export {
     getApiLink,
     saveKey,
