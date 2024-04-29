@@ -4,7 +4,7 @@ import Loginpage from './components/loginpage'
 
 import {BrowserRouter as Router , Routes, Route } from 'react-router-dom'
 import Signup from './components/signuppage'
-import Dashboard from './components/dashboard'
+import Workspace from './components/workspace'
 
 function App() {
 
@@ -13,7 +13,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Loginpage/>} exact />
         <Route  path='/signup' element={<Signup/>}/>
-        <Route path='/dashboard' element={<Dashboard/>}/>
+        <Route path='/workspace' element={<Workspace/>}/>
       </Routes> 
     </Router>
   )
