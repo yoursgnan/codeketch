@@ -66,8 +66,8 @@ const Signup=()=>{
 
         try {
           const signup_url = getApiLink() + '/api/create_account'
-          const token = await axios.post(signup_url,data)
-          saveKey(USER_IDENTIFIER_KEY, token)
+          const response = await axios.post(signup_url,data)
+          saveKey(USER_IDENTIFIER_KEY, response.data.token)
           navigate('/workspace')
 
         }
