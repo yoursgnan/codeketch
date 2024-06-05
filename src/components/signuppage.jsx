@@ -75,7 +75,7 @@ const Signup=()=>{
           console.log(error)
           showNotification({
             type: 'error',
-            message: error.message,
+            message: error.data.message,
             show: true
           })
         }
