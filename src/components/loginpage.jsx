@@ -65,10 +65,11 @@ const LoginForm = () => {
       navigate('/workspace')
     }
     catch(error){
-      console.log(error)
+      console.log('error',error)
+      console.log('error',error.data)
       showNotification({
         type: 'error',
-        message: error.data.message,
+        message: error.response.data.message,
         show: true
       })
     }
