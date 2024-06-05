@@ -60,8 +60,8 @@ const LoginForm = () => {
     }
     data.password = password
     try{
-      const token = await axios.post(login_post_url,data)
-      saveKey(USER_IDENTIFIER_KEY,token)
+      const response = await axios.post(login_post_url,data)
+      saveKey(USER_IDENTIFIER_KEY,response.data.token)
       navigate('/workspace')
     }
     catch(error){
