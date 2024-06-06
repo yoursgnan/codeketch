@@ -16,6 +16,11 @@
   --notifier-yellow-color: rgb(255, 255, 105);
 }
 
+.canvas{
+  height: 100vh;
+  width: 100vw;
+}
+
 .notifier {
   color: var(--light-black);
   padding: 0.5rem;
@@ -60,14 +65,25 @@ form{
 .content-box {
   background: linear-gradient(147.38deg, rgba(238, 216, 255, 0.4) -17.41%, rgba(180, 246, 255, 0.4) 131.98%);
   border: 1px solid rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(7.9px);
+  backdrop-filter: blur(8px);
   /* Note: backdrop-filter has minimal browser support */
   border-radius: 8px;
   padding: 2rem;
- 
+  min-width: 20%;
+  max-width: 80%;
 }
 
-.link{
+.navbar-container{
+  width: 5%; 
+  background: var(--grey);   
+  padding: 0.5rem;
+}
+
+.menuicon{
+  width: 80%;
+}
+
+.link{ 
  /* margin-left: auto; */
  color: var(--purple);
 
@@ -76,8 +92,8 @@ form{
 .loginform > .link {
   margin-left: auto;
 }
-p,h3,h2,h1,a {
-  margin: 0px;
+p,h3,h2,h1,a { 
+  margin: 1px;
 }
 
 .loginform > h3 {

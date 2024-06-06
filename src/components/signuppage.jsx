@@ -36,6 +36,7 @@ const Signup=()=>{
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
+        setUsername(e.target.value.substring(0,e.target.value.indexOf('@')))
       };
     
       const handleFirstnameChange = (e) => {
@@ -57,28 +58,39 @@ const Signup=()=>{
         e.preventDefault(); 
         console.log(`your username: ${username} and lastname :${lname} password: ${password}  cpassword: ${cpassword}`);
 
-        const data = {
-          email: email,
-          username: username,
-          name: lname,
-          password: password,
-        }
-
-        try {
-          const signup_url = getApiLink() + '/api/create_account'
-          const token = await axios.post(signup_url,data)
-          saveKey(USER_IDENTIFIER_KEY, token)
-          navigate('/workspace')
-
-        }
-        catch(error){
-          console.log(error)
+        if(password!=cpassword){
           showNotification({
             type: 'error',
-            message: error.message,
+            message: 'Password not matching',
             show: true
           })
         }
+        else{
+          const data = {
+            email: email,
+            username: username,
+            name: lname,
+            password: password,
+          }
+  
+          try {
+            const signup_url = getApiLink() + '/api/create_account'
+            const response = await axios.post(signup_url,data)
+            saveKey(USER_IDENTIFIER_KEY, response.data.token)
+            navigate('/workspace')
+  
+          }
+          catch(error){
+            console.log(error)
+            showNotification({
+              type: 'error',
+              message: error.response.data.message,
+              show: true
+            })
+          }
+        }
+
+        
         
 
 
@@ -90,73 +102,76 @@ const Signup=()=>{
     };
 
     return(
-      <div className='flex center'>
-        <div className='content-box'>
-          {/* <div className='flex left' id='brand-icon'>
-              <img src={logo} alt="My Icon" />      
-          </div> */}
-          <form onSubmit={handleLogin} className='submitform flex column'>
-        {/* Username Input */}
-            
-            <a href="/" className='smalltext link'>Go back to sign in</a>
-            
-            <h2>Codeketch</h2>
-            <h3>Sign up</h3>
-            {
-              notification.show && <Notifier type={notification.type} message={notification.message}/>
-            }
-            <input
-              className='input-box poppins-light'
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={handleEmailChange}
-            />
+      <div className='canvas flex center'>
+        <div className='flex center'>
+                <div className='content-box'>
+                  {/* <div className='flex left' id='brand-icon'>
+                      <img src={logo} alt="My Icon" />      
+                  </div> */}
+                  <form onSubmit={handleLogin} className='submitform flex column'>
+                {/* Username Input */}
+                    
+                    <a href="/" className='smalltext link'>Go back to sign in</a>
+                    
+                    <h2>Codeketch</h2>
+                    <h3>Sign up</h3>
+                    {
+                      notification.show && <Notifier type={notification.type} message={notification.message}/>
+                    }
+                    <input
+                      className='input-box poppins-light'
+                      type="email"
+                      placeholder="Email"
+                      value={email}
+                      onChange={handleEmailChange}
+                    />
 
-            <input
-              className='input-box poppins-light'
-              type="text"
-              placeholder="Username"
-              value={username}
-              onChange={handleFirstnameChange}
-              />  
+                    <input
+                      className='input-box poppins-light'
+                      type="text"
+                      placeholder="Username"
+                      value={username}
+                      onChange={handleFirstnameChange}
+                      />  
 
-            
-              
-            <input
-                className='input-box poppins-light'
-                type="text"
-                placeholder="Name"
-                value={lname}
-                onChange={handleLastnameChange}
-                />
-            
-            
+                    
+                      
+                    <input
+                        className='input-box poppins-light'
+                        type="text"
+                        placeholder="Name"
+                        value={lname}
+                        onChange={handleLastnameChange}
+                        />
+                    
+                    
 
-            {/* Password Input */}
-            <input
-              className='input-box poppins-light'
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={handlePasswordChange}
-            />
+                    {/* Password Input */}
+                    <input
+                      className='input-box poppins-light'
+                      type="password"
+                      placeholder="Password"
+                      value={password}
+                      onChange={handlePasswordChange}
+                    />
 
-            <input
-              className='input-box poppins-light'
-              type="password"
-              placeholder="Confirm Password"
-              value={cpassword}
-              onChange={handleConfirmPasswordChange}
-            />
-            <div className="flex">
-              <button className='button login poppins-medium'>Create Account</button>
-            </div>
-            
+                    <input
+                      className='input-box poppins-light'
+                      type="password"
+                      placeholder="Confirm Password"
+                      value={cpassword}
+                      onChange={handleConfirmPasswordChange}
+                    />
+                    <div className="flex">
+                      <button className='button login poppins-medium'>Create Account</button>
+                    </div>
+                    
 
-          </form>
-        </div>
+                  </form>
+                </div>
+              </div>
       </div>
+      
 
         
     );
