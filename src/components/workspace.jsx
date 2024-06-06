@@ -50,7 +50,7 @@ const Workspace = () => {
             <NavBar menus={menus} lowermenus={lowermenus}/>
             <div>
                 <h3>workspaces</h3>
-                <p>Welcome {user.name}</p>
+                {user && <p>Welcome {user.name}</p>}
                 <button className="button github poppins-medium">New Workspace</button>
                 <div><a href="#" onClick={logout}>Sign Out</a></div>
             </div>
