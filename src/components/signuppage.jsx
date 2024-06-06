@@ -1,21 +1,46 @@
 import { useState } from 'react';
 
-import logo from '../assets/icon.png';
+import { getApiLink, saveKey, USER_IDENTIFIER_KEY } from '../utils/helper_functions';
+
+import Notifier from './notifier';
+import { useNavigate } from 'react-router';
+
+import axios from 'axios';
 
 const Signup=()=>{
 
+    const navigate = useNavigate()
+
     const [email , setEmail]=useState('');
-    const [fname , setFname]=useState('');
+    const [username , setUsername]=useState('');
     const [lname , setLname]=useState('');
     const [password,setPassword]=useState('');
     const [cpassword,setCPassword]=useState('');
 
+    const [notification,setShowNotification] = useState({
+      show: false,
+      message: null,
+      type: null,
+    })
+
+    const showNotification = (notification) => {
+      setShowNotification(notification)
+      setTimeout(()=>{
+        setShowNotification({
+          show: false,
+          message: null,
+          type: null,
+        })
+      },2000)
+    }
+
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
+        setUsername(e.target.value.substring(0,e.target.value.indexOf('@')))
       };
     
       const handleFirstnameChange = (e) => {
-        setFname(e.target.value);
+        setUsername(e.target.value);
       };
     
       const handleLastnameChange = (e) => {
@@ -29,74 +54,124 @@ const Signup=()=>{
         setCPassword(e.target.value);
       };
     
-      const handleLogin = (e) => {
+      const handleLogin = async(e) => {
         e.preventDefault(); 
-        console.log(`your Firstname: ${fname} and lastname :${lname} password: ${password}  cpassword: ${cpassword}`);
-    
+        console.log(`your username: ${username} and lastname :${lname} password: ${password}  cpassword: ${cpassword}`);
+
+        if(password!=cpassword){
+          showNotification({
+            type: 'error',
+            message: 'Password not matching',
+            show: true
+          })
+        }
+        else{
+          const data = {
+            email: email,
+            username: username,
+            name: lname,
+            password: password,
+          }
+  
+          try {
+            const signup_url = getApiLink() + '/api/create_account'
+            const response = await axios.post(signup_url,data)
+            saveKey(USER_IDENTIFIER_KEY, response.data.token)
+            navigate('/workspace')
+  
+          }
+          catch(error){
+            console.log(error)
+            showNotification({
+              type: 'error',
+              message: error.response.data.message,
+              show: true
+            })
+          }
+        }
+
+        
+        
+
+
         // Reset form fields after login attempt
-        setFname('');
-        setLname('');
-        setPassword('');
-        setCPassword('');
+        // setUsername('');
+        // setLname('');
+        // setPassword('');
+        // setCPassword('');
     };
 
     return(
-      <div className='flex center'>
-        <div className='content-box'>
-          <div className='flex left' id='brand-icon'>
-              <img src={logo} alt="My Icon" />      
-          </div>
-          <form onSubmit={handleLogin} className='submitform flex column'>
-        {/* Username Input */}
-        
-            <input
-              className='input-box poppins-light'
-              type="email"
-              placeholder="Email@gmail.com"
-              value={email}
-              onChange={handleEmailChange}
-            />
+      <div className='canvas flex center'>
+        <div className='flex center'>
+                <div className='content-box'>
+                  {/* <div className='flex left' id='brand-icon'>
+                      <img src={logo} alt="My Icon" />      
+                  </div> */}
+                  <form onSubmit={handleLogin} className='submitform flex column'>
+                {/* Username Input */}
+                    
+                    <a href="/" className='smalltext link'>Go back to sign in</a>
+                    
+                    <h2>Codeketch</h2>
+                    <h3>Sign up</h3>
+                    {
+                      notification.show && <Notifier type={notification.type} message={notification.message}/>
+                    }
+                    <input
+                      className='input-box poppins-light'
+                      type="email"
+                      placeholder="Email"
+                      value={email}
+                      onChange={handleEmailChange}
+                    />
 
-            <div className='flex row'>
-              <input
-                  className='input-box poppins-light'
-                  type="Firstname"
-                  placeholder="First name"
-                  value={fname}
-                  onChange={handleFirstnameChange}
-                  />
-              <input
-                  className='input-box poppins-light'
-                  type="Lastname"
-                  placeholder="Last name"
-                  value={lname}
-                  onChange={handleLastnameChange}
-                  />
-            </div>
-            
+                    <input
+                      className='input-box poppins-light'
+                      type="text"
+                      placeholder="Username"
+                      value={username}
+                      onChange={handleFirstnameChange}
+                      />  
 
-            {/* Password Input */}
-            <input
-              className='input-box poppins-light'
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={handlePasswordChange}
-            />
+                    
+                      
+                    <input
+                        className='input-box poppins-light'
+                        type="text"
+                        placeholder="Name"
+                        value={lname}
+                        onChange={handleLastnameChange}
+                        />
+                    
+                    
 
-            <input
-              className='input-box poppins-light'
-              type="password"
-              placeholder="Confirm Password"
-              value={cpassword}
-              onChange={handleConfirmPasswordChange}
-            />
+                    {/* Password Input */}
+                    <input
+                      className='input-box poppins-light'
+                      type="password"
+                      placeholder="Password"
+                      value={password}
+                      onChange={handlePasswordChange}
+                    />
 
-            <button className='button login poppins-medium'>Create Account</button>
+                    <input
+                      className='input-box poppins-light'
+                      type="password"
+                      placeholder="Confirm Password"
+                      value={cpassword}
+                      onChange={handleConfirmPasswordChange}
+                    />
+                    <div className="flex">
+                      <button className='button login poppins-medium'>Create Account</button>
+                    </div>
+                    
 
-          </form>
-        </div>
+                  </form>
+                </div>
+              </div>
       </div>
+      
 
         
     );
