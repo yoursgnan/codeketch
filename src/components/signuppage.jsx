@@ -82,11 +82,21 @@ const Signup=()=>{
           }
           catch(error){
             console.log(error)
-            showNotification({
-              type: 'error',
-              message: error.response.data.message,
-              show: true
-            })
+            if('message' in error.response.data){
+              showNotification({
+                type: 'error',
+                message: error.response.data.message,
+                show: true
+              })
+            }
+            else if('errors' in error.response.data){
+              showNotification({
+                type: 'error',
+                message: error.response.data.errors[0].message,
+                show: true
+              })
+            }
+            
           }
         }
 
