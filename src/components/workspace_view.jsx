@@ -39,7 +39,7 @@ const WorkspaceView = () => {
 
         }
         fetchWorkspaces();
-    })
+    },[])
 
     return (
         <div style={{padding:10}}>
