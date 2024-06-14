@@ -1,19 +1,21 @@
 import MenuIcon from "./menuicon"
+import hamburger from '../assets/hamburger.svg'
 
 const NavBar = (props) => {
     console.log('props got',props)
     return (
-        <div className="navbar-container">
-            <div className="navbar-menus">
-                <div className="nav-menubar">
+        
+        <nav className="navbar-container">
+            <div className="nav-topmenu">
+                <div className="flex column start gap">
                 {
                     props.menus.map((menu, index) => (
-                        <MenuIcon key={index} icon={menu.icon} name={menu.name} />
+                        <MenuIcon key={index} menudata={props.menus[index]} menuClickHandler={()=>props.menuClickHandler(index)}/>
                     ))
                 }
                 </div>
             </div>
-        </div>
+        </nav>
     )
 }
 
