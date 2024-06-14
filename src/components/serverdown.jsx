@@ -18,9 +18,14 @@ const ServerDown = () => {
 
     useEffect(()=>{
         const handleNavigation = () => {
+            
             axios.defaults.headers.common['Authorization'] = `Bearer ${getValue(USER_IDENTIFIER_KEY)}`
             axios.get(getApiLink()+'/api/login').then(response=>{
-                navigate('/')
+                navigate('/') 
+            }).catch(error=>{
+                if(error.message!=='Network Error'){
+                    navigate('/')
+                }
             })
         }
         handleNavigation();

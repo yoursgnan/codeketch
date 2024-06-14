@@ -1,5 +1,5 @@
 const getApiLink = () => {
-    let api_link = 'http://localhost:3001'
+    let api_link = 'https://codeketch-backend.onrender.com/'
     return api_link
 }
 

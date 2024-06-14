@@ -85,7 +85,7 @@ const LoginForm = () => {
 
   useEffect(()=>{
     const action_login = async() => {
-      try{
+      try{  
         const loginUser = await axios.get(getApiLink()+'/api/login')
         console.log('signed in user',loginUser)
         setUser(loginUser)
@@ -95,7 +95,7 @@ const LoginForm = () => {
       } 
       catch(error){
         console.log('not signed in',error)
-        if(error.message='Network Error'){
+        if(error.message==='Network Error'){
           navigate('/server-down')
         }
       }
