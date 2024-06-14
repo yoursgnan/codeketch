@@ -91,10 +91,13 @@ const LoginForm = () => {
         setUser(loginUser)
         if(loginUser){
           navigate('/workspace')
-        }
-      }
+        } 
+      } 
       catch(error){
-        console.log('not signed in')
+        console.log('not signed in',error)
+        if(error.message='Network Error'){
+          navigate('/server-down')
+        }
       }
       
     }
@@ -149,7 +152,7 @@ const LoginForm = () => {
                   </div>
                 </form>
                 <div className='flex'>
-                  <button className='button github poppins-medium flex center'> 
+                  <button className='button btn-dark poppins-medium flex center'> 
                     <img src={giticon} alt="Git" id='giticon' /> Login with GitHub
                   </button>
                 </div>

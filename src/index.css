@@ -25,8 +25,10 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
-
-
+h1,h2,h3,h4,h5,h6,p{
+  margin: 1px;
+  padding:1px;
+}
 
 @media (prefers-color-scheme: light) {
   /* :root {
