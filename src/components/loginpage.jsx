@@ -3,111 +3,60 @@ import giticon from '../assets/github.svg';
 
 import { useNavigate } from 'react-router';
 
-import { getApiLink, saveKey, getValue, USER_IDENTIFIER_KEY} from '../utils/helper_functions'
-import axios from 'axios'
+import { saveKey, USER_IDENTIFIER_KEY, getCredentials} from '../utils/helper_functions'
 import Notifier from './notifier';
 
+import { set } from '../reducers/login_reducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { setNotificationMessage } from '../reducers/notification_reducer';
+import { getAxiosInstance } from '../utils/helper_functions';
+import { notify } from '../utils/helper_functions';
+import AppHeader from './app_header';
+import {setToken} from '../reducers/token_reducer'
 
 
 
 const LoginForm = () => {
-  const [user,setUser] = useState(null)
 
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-
-  axios.defaults.headers.common['Authorization'] = `Bearer ${getValue(USER_IDENTIFIER_KEY)}`
-
-  const [notification,setShowNotification] = useState({
-    show: false,
-    message: null,
-    type: null,
-  })
-
-  const showNotification = (notification) => {
-    setShowNotification(notification)
-    setTimeout(()=>{
-      setShowNotification({
-        show: false,
-        message: null,
-        type: null,
-      })
-    },2000)
-  }
+  const loginData = useSelector(state=>state.login)
+  const dispatch = useDispatch()
 
   const navigate = useNavigate()
-
-  const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
 
   const handleLogin = async(e) => {
     // Prevent form submission (default behavior)
     e.preventDefault(); 
     
-    // Implement your login logic here (e.g., API call)
-    console.log(`Logging in with username: ${username} and password: ${password}`);
-    
-    let login_post_url = getApiLink()+'/api/login'
-
-    const data = {}
-
-    if(username.includes('@')){
-      data.email = username
-    }
-    else{
-      data.username = username
-    }
-    data.password = password
     try{
-      const response = await axios.post(login_post_url,data)
+      const response = await getAxiosInstance().post('/api/login',getCredentials(loginData))
       saveKey(USER_IDENTIFIER_KEY,response.data.token)
-      navigate('/workspace')
+      dispatch(setToken(response.data.token))
+      navigate('/home')
     }
     catch(error){
-      console.log('in catch block')
-      console.log(error)
-      showNotification({
-        type: 'error',
-        message: error.response.data.message,
-        show: true
-      })
+      notify(dispatch,error.response.data.message)
     }
 
-    // Reset form fields after login attempt
-    // setUsername('');
-    setPassword('');
-  };
-
-  useEffect(()=>{
-    const action_login = async() => {
-      try{  
-        const loginUser = await axios.get(getApiLink()+'/api/login')
-        console.log('signed in user',loginUser)
-        setUser(loginUser)
-        if(loginUser){
-          navigate('/workspace')
-        } 
-      } 
-      catch(error){
-        console.log('not signed in',error)
-        if(error.message==='Network Error'){
-          navigate('/server-down')
-        }
-      }
-      
-    }
-
-    action_login()
+    dispatch(set({
+      name: 'password',
+      value: ''
+    }));
     
-  },[navigate]) 
+    
+  }
+
+  const handleFieldChange = (event) => {
+    dispatch(set({
+      name: event.target.name,
+      value: event.target.value
+    }))
+  }
 
   return (
-    <div className='canvas flex center'>
+    <>
+    <AppHeader/>
+    <div className='canvas flex center greybg'>
+      
       <div className='flex center'>
               <div className='content-box'>
                 {/* <div className='flex left' id='brand-icon'>
@@ -116,31 +65,30 @@ const LoginForm = () => {
 
                 <form onSubmit={handleLogin} className='loginform flex column'>
                   {/* Username Input */}
-                  <h2>Codeketch</h2>
-                  <h3>Sign In</h3>
-                  {
-                    notification.show && <Notifier type={notification.type} message={notification.message}/>
-                  }
+                  <h3>Welcome back</h3>
+                  <h2>Sign In to Your Account</h2>
                   <input
-                    className='input-box poppins-light'
+                    className='poppins-light material-input'
                     type="text"
+                    name="email_or_username"
                     placeholder="Email / Username"
-                    value={username}
-                    onChange={handleUsernameChange}
+                    value={loginData.email_or_username}
+                    onChange={handleFieldChange}
                   />
 
                   {/* Password Input */}
                   <input
-                    className='input-box poppins-light'
+                    className='poppins-light material-input'
                     type="password"
+                    name="password"
                     placeholder="Password"
-                    value={password}
-                    onChange={handlePasswordChange}
+                    value={loginData.password}
+                    onChange={handleFieldChange}
                   />
                   <a href='#' className="smalltext link">Forgot Password</a>
                   {/* Forgot password*/}
                   <div className="flex">
-                      <button className='button login poppins-medium'>Login</button>
+                      <button className='button btn-dark poppins-medium flex center'>Login</button>
                   </div>
                   <div className='smalltext flex right'>
                       <p>Don`t have any account? <a href="/signup" className='link'>Create one</a></p>
@@ -152,7 +100,7 @@ const LoginForm = () => {
                   </div>
                 </form>
                 <div className='flex'>
-                  <button className='button btn-dark poppins-medium flex center'> 
+                  <button className='button btn-light poppins-medium flex center'> 
                     <img src={giticon} alt="Git" id='giticon' /> Login with GitHub
                   </button>
                 </div>
@@ -160,6 +108,8 @@ const LoginForm = () => {
             </div>
           </div>
     </div>
+    </>
+    
     
   );
 };

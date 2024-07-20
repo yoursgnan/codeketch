@@ -1,42 +1,39 @@
 import { useEffect, useState } from "react"
 import NewWorkspace from "./new_workspace"
-import { getApiLink, getValue, USER_IDENTIFIER_KEY } from "../utils/helper_functions"
+import { getApiLink, getValue, USER_IDENTIFIER_KEY,getAxiosInstance } from "../utils/helper_functions"
 
 import noworkspace from '../assets/noworkspace1.png'
 
-import axios from "axios"
-
+import { useDispatch,useSelector } from "react-redux"
+import { notify } from "../utils/helper_functions"
+import {setWorkspaces} from '../reducers/workspaces_reducer'
 import WorkspaceBox from "./workspace_box"
 
 const WorkspaceView = () => {
     const [showNewWorkspaceDialog,setShowNewWorkspaceDialog] = useState(false)
 
-    const [workspaces,setWorkspaces] = useState([])
+    const workspaces = useSelector(state=>state.workspaces)
 
-    const [data,setData] = useState({
-        title: '',
-        description: ''
-    })
+    const dispatch = useDispatch()
 
-    axios.defaults.headers.common['Authorization'] = `Bearer ${getValue(USER_IDENTIFIER_KEY)}`
-
-    const createWorkSpace = async() => {
-        console.log('create called',data)
-        const api_link = getApiLink() + '/api/workspace'
-        const response = await axios.post(api_link,data)
-        console.log('response',response.data)
-        const newWorkspaces = [...workspaces,response.data]
-        setWorkspaces(newWorkspaces)
+    const closeDialog = () => {
         setShowNewWorkspaceDialog(false)
-        
+    }
+
+    const openDialog = () => {
+        setShowNewWorkspaceDialog(true)
     }
 
     useEffect(()=>{
         const fetchWorkspaces = async()=>{
-            const api_link = getApiLink() + '/api/workspace'
-            const response = await axios.get(api_link)
-            setWorkspaces(response.data)
-
+            try{
+                const response = await getAxiosInstance().get('/api/workspace')
+                dispatch(setWorkspaces(response.data))
+            }
+            catch(error){
+                console.log(error)
+                notify(dispatch,'Failed to fetch your workspaces')
+            }
         }
         fetchWorkspaces();
     },[])
@@ -44,11 +41,11 @@ const WorkspaceView = () => {
     return (
         <div style={{padding:10}}>
             {
-                showNewWorkspaceDialog && <NewWorkspace discard={()=>{setShowNewWorkspaceDialog(false)}} data={data} setData={setData} createWorkSpace={createWorkSpace}/>   
+                showNewWorkspaceDialog && <NewWorkspace discard={closeDialog} />   
             }
             <h2 className="poppins-medium">Workspaces</h2>
             <br/>
-            <button className="button btn-dark poppins-medium" style={{padding:10}} onClick={()=>{setShowNewWorkspaceDialog(true)}}>New WorkSpace</button>
+            <button className="button btn-dark poppins-medium" style={{padding:10}} onClick={openDialog}>New WorkSpace</button>
             <br/>
             {
             workspaces && workspaces.length > 0  ? (

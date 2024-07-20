@@ -11,6 +11,7 @@
   --grey: #eeeeee;
   --light-white: #fdfdff;
   --purple: #8A38F5;
+  --lightpurplewhite: #f8f2ff;
   --notifier-red-color: rgb(255, 174, 174);
   --notifier-green-color: rgb(115, 240, 202);
   --notifier-yellow-color: rgb(255, 255, 105);
@@ -21,13 +22,41 @@
   width: 100vw;
 }
 
+@keyframes notification-animation {
+  0%{
+    display: none;
+  }
+  100%{
+    display: block;
+  }
+}
+
+.greybg{
+  background: var(--lightpurplewhite);
+}
+
 .notifier {
   color: var(--light-black);
   padding: 0.5rem;
   border-radius: 0.4rem;
   font-size: 0.8rem;
-  border: var(--notifier-red-color);
-  opacity: 0.8;
+  /* border: var(--notifier-red-color); */
+  opacity: 1;
+  position: absolute;
+  top: 1%;
+  right: 1%;
+  /* overflow: hidden; */
+  animation: notification-animation 1s ease-in;
+  z-index: 99;
+
+}
+.notifier-normal {
+  background: white;
+  border: 0.1rem solid var(--black);
+  border-bottom: 0.3rem solid var(--black);
+  border-left:0.3rem solid var(--black);
+  border-radius: 0.3rem;
+  padding: 1rem;
 }
 .notifier-red{
   background: var(--notifier-red-color);
@@ -63,7 +92,7 @@ form{
 }
 
 .content-box {
-  background: linear-gradient(147.38deg, rgba(238, 216, 255, 0.4) -17.41%, rgba(180, 246, 255, 0.4) 131.98%);
+  background: white;
   border: 1px solid rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(8px);
   /* Note: backdrop-filter has minimal browser support */
@@ -122,13 +151,27 @@ p,h3,h2,h1,a {
 /* .input-box:focus{
   background: var(--white);
 } */
+
+.appheader {
+  width: 100%;
+  padding: 1.4rem;
+  position: absolute;
+  top:0;
+  background: white;
+  box-sizing: border-box;
+  box-shadow: 1px 2px 8px var(--shadow-color);
+}
+.appheading{
+  font-size: 1.5rem;
+  color: var(--purple)
+}
 .input-box:hover{
   border-color: var(--skyblue);
 }
 
 .flex {
   display: flex;
-  gap:0.5rem;
+  gap:1rem;
 }
 
 .row{
@@ -264,6 +307,9 @@ p,h3,h2,h1,a {
 }
 .workspace-box{
   border: solid 0.4px var(--shadow-color);
+  border-radius: 0.4rem;
+  width: 300px;
+  height: 100px;
   /* width: 30%; */
   padding: 1rem;
   cursor: pointer;;
