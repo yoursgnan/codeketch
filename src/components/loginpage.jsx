@@ -54,8 +54,8 @@ const LoginForm = () => {
 
   return (
     <>
-    <AppHeader/>
-    <div className='canvas flex center greybg'>
+    {/* <AppHeader/> */}
+    <div className='canvas flex center'>
       
       <div className='flex center'>
               <div className='content-box'>
@@ -66,7 +66,7 @@ const LoginForm = () => {
                 <form onSubmit={handleLogin} className='loginform flex column'>
                   {/* Username Input */}
                   <h3>Welcome back</h3>
-                  <h2>Sign In to Your Account</h2>
+                  <h4>Sign In to Your Account</h4>
                   <input
                     className='poppins-light material-input'
                     type="text"

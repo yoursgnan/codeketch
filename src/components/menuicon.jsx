@@ -1,9 +1,9 @@
 const MenuIcon = (props) => {
     return (
-        <div className={props.menudata.active?"flex column center tab active-tab":"flex column center tab"} onClick={props.menuClickHandler}>
+        <div className={props.menudata.active?"flex row left tab active-tab":"flex row left tab"} onClick={props.menuClickHandler}>
             <img src={props.menudata.icon} className="menuicon" title={props.menudata.name}/>
             <span style={{
-                fontSize:10
+                fontSize:15
             }}>{props.menudata.name}</span>
         </div>
     )

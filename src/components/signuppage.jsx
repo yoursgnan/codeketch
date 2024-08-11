@@ -52,8 +52,8 @@ const Signup=()=>{
 
     return(
       <>
-      <AppHeader/>
-      <div className='canvas flex center greybg'>
+      {/* <AppHeader/> */}
+      <div className='canvas flex center'>
         <div className='flex center'>
                 <div className='content-box'>
                   {/* <div className='flex left' id='brand-icon'>

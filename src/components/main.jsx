@@ -83,7 +83,7 @@ const Main = () => {
         <div className="canvas flex row left">
             <NavBar menus={menus} expanded={navExpanded} menuClickHandler={setActiveTab}/>
             <main className="component-view">
-            {(appuser && !appuser.email_verified) && <VerifyEmail/>}
+            {/* {(appuser && !appuser.email_verified) && <VerifyEmail/>} */}
                 {getActiveComponent()}
             </main> 
         </div>
