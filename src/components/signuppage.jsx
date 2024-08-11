@@ -1,117 +1,58 @@
-import { useState } from 'react';
+import { getApiLink, notify, saveKey, getAxiosInstance,USER_IDENTIFIER_KEY } from '../utils/helper_functions';
 
-import { getApiLink, saveKey, USER_IDENTIFIER_KEY } from '../utils/helper_functions';
-
-import Notifier from './notifier';
 import { useNavigate } from 'react-router';
 
 import axios from 'axios';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { set } from '../reducers/account_reducer'
+import AppHeader from './app_header';
 
 const Signup=()=>{
 
     const navigate = useNavigate()
 
-    const [email , setEmail]=useState('');
-    const [username , setUsername]=useState('');
-    const [lname , setLname]=useState('');
-    const [password,setPassword]=useState('');
-    const [cpassword,setCPassword]=useState('');
+    const userData = useSelector(state=>state.user)
+    const userDispatch = useDispatch()
 
-    const [notification,setShowNotification] = useState({
-      show: false,
-      message: null,
-      type: null,
-    })
+    const handleLogin = async(e) => {
+      e.preventDefault(); 
+      
+      if(userData.password!=userData.cpassword){
+        notify(useDispatch,'Password not matching')
+      }
+      else{
 
-    const showNotification = (notification) => {
-      setShowNotification(notification)
-      setTimeout(()=>{
-        setShowNotification({
-          show: false,
-          message: null,
-          type: null,
-        })
-      },2000)
+        try {
+          const response = await getAxiosInstance().post('/api/create_account',userData)
+          saveKey(USER_IDENTIFIER_KEY, response.data.token)
+          navigate('/home')
+
+        }
+        catch(error){
+          console.log(error)
+          if('message' in error.response.data){
+            notify(userDispatch,error.response.data.message)
+          }
+          else if('errors' in error.response.data){
+              notify(userDispatch,error.response.data.errors[0].message)
+          }
+          
+        }
+      }
+
+  };
+
+    const handleFieldChange = (event) => {
+      userDispatch(set({
+        name: event.target.name,
+        value: event.target.value
+      }))
     }
 
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value);
-        setUsername(e.target.value.substring(0,e.target.value.indexOf('@')))
-      };
-    
-      const handleFirstnameChange = (e) => {
-        setUsername(e.target.value);
-      };
-    
-      const handleLastnameChange = (e) => {
-        setLname(e.target.value);
-      };
-    
-      const handlePasswordChange = (e) => {
-        setPassword(e.target.value);
-      };
-      const handleConfirmPasswordChange = (e) => {
-        setCPassword(e.target.value);
-      };
-    
-      const handleLogin = async(e) => {
-        e.preventDefault(); 
-        console.log(`your username: ${username} and lastname :${lname} password: ${password}  cpassword: ${cpassword}`);
-
-        if(password!=cpassword){
-          showNotification({
-            type: 'error',
-            message: 'Password not matching',
-            show: true
-          })
-        }
-        else{
-          const data = {
-            email: email,
-            username: username,
-            name: lname,
-            password: password,
-          }
-  
-          try {
-            const signup_url = getApiLink() + '/api/create_account'
-            const response = await axios.post(signup_url,data)
-            saveKey(USER_IDENTIFIER_KEY, response.data.token)
-            navigate('/workspace')
-  
-          }
-          catch(error){
-            console.log(error)
-            if('message' in error.response.data){
-              showNotification({
-                type: 'error',
-                message: error.response.data.message,
-                show: true
-              })
-            }
-            else if('errors' in error.response.data){
-              showNotification({
-                type: 'error',
-                message: error.response.data.errors[0].message,
-                show: true
-              })
-            }
-            
-          }
-        }
-
-        
-        
-
-
-        // Reset form fields after login attempt
-        // setUsername('');
-        // setLname('');
-        // setPassword('');
-        // setCPassword('');
-    };
-
     return(
+      <>
+      {/* <AppHeader/> */}
       <div className='canvas flex center'>
         <div className='flex center'>
                 <div className='content-box'>
@@ -125,55 +66,57 @@ const Signup=()=>{
                     
                     <h2>Codeketch</h2>
                     <h3>Sign up</h3>
-                    {
-                      notification.show && <Notifier type={notification.type} message={notification.message}/>
-                    }
                     <input
-                      className='input-box poppins-light'
+                      className='poppins-light material-input'
                       type="email"
+                      name="email"
                       placeholder="Email"
-                      value={email}
-                      onChange={handleEmailChange}
+                      value={userData.email}
+                      onChange={handleFieldChange}
                     />
 
                     <input
-                      className='input-box poppins-light'
+                      className='poppins-light material-input'
                       type="text"
+                      name="username"
                       placeholder="Username"
-                      value={username}
-                      onChange={handleFirstnameChange}
+                      value={userData.username}
+                      onChange={handleFieldChange}
                       />  
 
                     
                       
                     <input
-                        className='input-box poppins-light'
+                        className='poppins-light material-input'
                         type="text"
+                        name="name"
                         placeholder="Name"
-                        value={lname}
-                        onChange={handleLastnameChange}
+                        value={userData.lname}
+                        onChange={handleFieldChange}
                         />
                     
                     
 
                     {/* Password Input */}
                     <input
-                      className='input-box poppins-light'
+                      className='poppins-light material-input'
                       type="password"
+                      name="password"
                       placeholder="Password"
-                      value={password}
-                      onChange={handlePasswordChange}
+                      value={userData.password}
+                      onChange={handleFieldChange}
                     />
 
                     <input
-                      className='input-box poppins-light'
+                      className='poppins-light material-input'
                       type="password"
+                      name="cpassword"
                       placeholder="Confirm Password"
-                      value={cpassword}
-                      onChange={handleConfirmPasswordChange}
+                      value={userData.cpassword}
+                      onChange={handleFieldChange}
                     />
                     <div className="flex">
-                      <button className='button login poppins-medium'>Create Account</button>
+                      <button className='button btn-dark poppins-medium flex center'>Create Account</button>
                     </div>
                     
 
@@ -181,6 +124,8 @@ const Signup=()=>{
                 </div>
               </div>
       </div>
+      </>
+      
       
 
         

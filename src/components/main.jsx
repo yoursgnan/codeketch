@@ -7,10 +7,11 @@ import WorkspaceView from "./workspace_view"
 import NavBar from "./navbar"
 import home from '../assets/home.svg'
 import VerifyEmail from "./verifyemail"
-import Dummy from "./dummy"
+import Settings from "./settings"
+import { useSelector } from "react-redux"
 
-const Workspace = () => {
-    const [user,setUser] = useState(null)
+const Main = () => {
+    const appuser = useSelector(state=>state.appuser)
     const [menus,setMenus] = useState([
         {
             icon: home,
@@ -23,10 +24,10 @@ const Workspace = () => {
         },
         {
             icon: home,
-            name: 'Dummy',
+            name: 'Settings',
             page_layout: {
                 title: 'Workspace',
-                component: <Dummy/>
+                component: <Settings/>
             },
             active:false
         },
@@ -59,15 +60,9 @@ const Workspace = () => {
 
     useEffect(()=>{
     const action_login = async() => {
-        try{
-            const loginUser = await axios.get(getApiLink()+'/api/login')
-            console.log('signed in user',loginUser)
-            setUser(loginUser.data)
-            
-        }catch(error){
+        if(!appuser){
             navigate('/')
         }
-        
     }
 
     action_login()
@@ -88,7 +83,7 @@ const Workspace = () => {
         <div className="canvas flex row left">
             <NavBar menus={menus} expanded={navExpanded} menuClickHandler={setActiveTab}/>
             <main className="component-view">
-            {(user && !user.email_verified) && <VerifyEmail/>}
+            {/* {(appuser && !appuser.email_verified) && <VerifyEmail/>} */}
                 {getActiveComponent()}
             </main> 
         </div>
@@ -96,4 +91,4 @@ const Workspace = () => {
     ) 
 } 
 
-export default Workspace
+export default Main

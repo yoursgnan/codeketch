@@ -11,6 +11,8 @@
   --grey: #eeeeee;
   --light-white: #fdfdff;
   --purple: #8A38F5;
+  --light-purple: #e5d4fc;
+  --lightpurplewhite: #f8f2ff;
   --notifier-red-color: rgb(255, 174, 174);
   --notifier-green-color: rgb(115, 240, 202);
   --notifier-yellow-color: rgb(255, 255, 105);
@@ -21,13 +23,41 @@
   width: 100vw;
 }
 
+@keyframes notification-animation {
+  0%{
+    display: none;
+  }
+  100%{
+    display: block;
+  }
+}
+
+.greybg{
+  background: var(--lightpurplewhite);
+}
+
 .notifier {
   color: var(--light-black);
   padding: 0.5rem;
   border-radius: 0.4rem;
   font-size: 0.8rem;
-  border: var(--notifier-red-color);
-  opacity: 0.8;
+  /* border: var(--notifier-red-color); */
+  opacity: 1;
+  position: absolute;
+  top: 1%;
+  right: 1%;
+  /* overflow: hidden; */
+  animation: notification-animation 1s ease-in;
+  z-index: 99;
+
+}
+.notifier-normal {
+  background: white;
+  border: 0.1rem solid var(--black);
+  border-bottom: 0.3rem solid var(--black);
+  border-left:0.3rem solid var(--black);
+  border-radius: 0.3rem;
+  padding: 1rem;
 }
 .notifier-red{
   background: var(--notifier-red-color);
@@ -63,7 +93,7 @@ form{
 }
 
 .content-box {
-  background: linear-gradient(147.38deg, rgba(238, 216, 255, 0.4) -17.41%, rgba(180, 246, 255, 0.4) 131.98%);
+  background: white;
   border: 1px solid rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(8px);
   /* Note: backdrop-filter has minimal browser support */
@@ -73,21 +103,25 @@ form{
   max-width: 80%;
 }
 
+.searchbar{
+  margin-bottom: 0.8rem;
+}
+
 .navbar-container {
-  width: 5%; 
+  width: 17%; 
   /* height: 100%; */
   background: var(--light-white); /* Semi-transparent white */
-  padding: 1.5rem;
+  padding: 1rem;
   /* margin: 0.5rem; */
   /* border-radius: 1rem; */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow for depth */
-  backdrop-filter: blur(10px); /* Blurs the content behind the navbar */
-  -webkit-backdrop-filter: blur(10px); /* For Safari */
-  border: 1px solid rgba(255, 255, 255, 0.3); /* Optional: border for glassy look */
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); Optional: subtle shadow for depth */
+  /* backdrop-filter: blur(10px); Blurs the content behind the navbar */
+  /* -webkit-backdrop-filter: blur(10px); For Safari */
+  border: 1px solid rgba(206, 204, 204, 0.3); /* Optional: border for glassy look */
 }
 
 .menuicon{
-  width: 30px;
+  width: 1rem;
 }
 
 .link{ 
@@ -122,6 +156,20 @@ p,h3,h2,h1,a {
 /* .input-box:focus{
   background: var(--white);
 } */
+
+.appheader {
+  width: 100%;
+  padding: 1rem;
+  position: relative;
+  top:0;
+  background: white;
+  box-sizing: border-box;
+  /* box-shadow: 1px 2px 8px var(--shadow-color); */
+}
+.appheading{
+  font-size: 1.5rem;
+  color: var(--purple)
+}
 .input-box:hover{
   border-color: var(--skyblue);
 }
@@ -250,12 +298,13 @@ p,h3,h2,h1,a {
 
 .material-input{
   border: solid transparent;
-  padding: 1rem;
+  padding: 0.7rem;
   border-bottom: solid 0.2rem var(--shadow-color);
   outline: none;
   transition: 1s;
   background: var(--grey);
   font-size: 1rem;
+  border-radius: 0.5rem;
 }
 .workspace-container{
   display: grid;
@@ -264,6 +313,9 @@ p,h3,h2,h1,a {
 }
 .workspace-box{
   border: solid 0.4px var(--shadow-color);
+  border-radius: 0.4rem;
+  width: 300px;
+  height: 100px;
   /* width: 30%; */
   padding: 1rem;
   cursor: pointer;;
@@ -306,24 +358,18 @@ p,h3,h2,h1,a {
 }
 
 
-.navbar-container{
-  width: 2.5%;
-  display: flex;
-  justify-content: center;
-  padding: 2rem;
-}
-
 .component-view {
   width: 97%;
 }
 .tab{
   padding: 0.6rem;
   cursor: pointer; 
+  /* gap:0.5rem; */
 }
 .active-tab{
-  background: #e2e9ff;
+  background: var(--light-purple);
   
-  border-radius: 1rem;
+  border-radius: 0.4rem;
 }
 
 .width-full {
