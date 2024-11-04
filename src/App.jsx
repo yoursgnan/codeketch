@@ -56,6 +56,7 @@ function AppRoutes() {
     const fetchUser = async () => {
       try {
         const user = await action_login();
+        console.log('user got while login',user)
         dispatch(login(user));
         navigate('/home');
       } catch (error) {

@@ -7,7 +7,7 @@ import { useEffect } from "react"
 const Settings = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const user = useSelector((state)=>state.appuser)
+    const user = useSelector(state=>state.appuser)
     const logOut = () => {
         dispatch(logout())
         action_logout()
@@ -20,7 +20,7 @@ const Settings = () => {
         <div>
             <h2>Settings</h2>
             <div className="setting-profile-box">
-                <h4>{user?.email}</h4>
+                <h4>{user?.name}</h4>
             </div>
             <button onClick={logOut} className="button btn-light">Logout</button>
         </div>

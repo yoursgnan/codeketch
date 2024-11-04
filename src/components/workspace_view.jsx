@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import NewWorkspace from "./new_workspace"
-import { getApiLink, getValue, USER_IDENTIFIER_KEY,getAxiosInstance } from "../utils/helper_functions"
+import { getAxiosInstance } from "../utils/helper_functions"
 
 import noworkspace from '../assets/noworkspace1.png'
 

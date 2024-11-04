@@ -2,8 +2,8 @@ import axios from 'axios';
 import { setNotificationMessage } from '../reducers/notification_reducer';
 
 const getApiLink = () => {
-  // let api_link = 'http://localhost:3001';
-  let api_link = 'https://codeketch-backend.onrender.com'
+  let api_link = 'http://localhost:3001';
+  // let api_link = 'https://codeketch-backend.onrender.com'
   return api_link;
 };
 

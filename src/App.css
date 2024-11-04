@@ -102,22 +102,28 @@ form{
   min-width: 20%;
   max-width: 80%;
 }
-
+.hamburger-container{
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.hamburger{
+  width: 30px;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
 .searchbar{
   margin-bottom: 0.8rem;
+}
+.searchtab{
+  cursor: pointer;
 }
 
 .navbar-container {
   width: 17%; 
-  /* height: 100%; */
-  background: var(--light-white); /* Semi-transparent white */
+  background: var(--light-white); 
   padding: 1rem;
-  /* margin: 0.5rem; */
-  /* border-radius: 1rem; */
-  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); Optional: subtle shadow for depth */
-  /* backdrop-filter: blur(10px); Blurs the content behind the navbar */
-  /* -webkit-backdrop-filter: blur(10px); For Safari */
-  border: 1px solid rgba(206, 204, 204, 0.3); /* Optional: border for glassy look */
+  border: 1px solid rgba(206, 204, 204, 0.3);
+  /* animation: dialog-fade 1s ease-in-out; */
 }
 
 .menuicon{
@@ -159,12 +165,16 @@ p,h3,h2,h1,a {
 
 .appheader {
   width: 100%;
-  padding: 1rem;
+  padding: 0.3rem;
   position: relative;
   top:0;
   background: white;
   box-sizing: border-box;
   /* box-shadow: 1px 2px 8px var(--shadow-color); */
+  border-bottom: 1px solid rgba(206, 204, 204, 0.3);
+}
+.appheader > .material-input {
+  padding: 0.4rem;
 }
 .appheading{
   font-size: 1.5rem;
@@ -366,9 +376,13 @@ p,h3,h2,h1,a {
   cursor: pointer; 
   /* gap:0.5rem; */
 }
+.searchtab{
+  /* padding: 0.6rem; */
+  color: var(--grey);
+}
 .active-tab{
   background: var(--light-purple);
-  
+  padding: 0.6rem;
   border-radius: 0.4rem;
 }
 
