@@ -6,6 +6,7 @@ import { getValue, USER_IDENTIFIER_KEY, getApiLink } from "../utils/helper_funct
 import WorkspaceView from "./workspace_view"
 import NavBar from "./navbar"
 import home from '../assets/home.svg'
+import settings_icon from '../assets/settings.svg'
 import VerifyEmail from "./verifyemail"
 import Settings from "./settings"
 import { useSelector } from "react-redux"
@@ -23,7 +24,7 @@ const Main = () => {
             active:true
         },
         {
-            icon: home,
+            icon: settings_icon,
             name: 'Settings',
             page_layout: {
                 title: 'Workspace',
@@ -37,37 +38,13 @@ const Main = () => {
         const activeMenu = menus.find(menu => menu.active);
         return activeMenu? activeMenu.page_layout.component: null
     }
-
-    const logout = () => {
-        window.localStorage.clear()
-        navigate('/')
-    }
     
-    const lowermenus = [
-        {
-            component: (<button onClick={logout} className="button btn-dark poppins-medium">Sign out</button>)
-        }
-    ]
-    // console.log('menus',menus) 
-
-
-    // const [activeMenu,setActiveMenu] = useState(menus[0])
     const [navExpanded,setNavExpanded] = useState(false)
-    const navigate = useNavigate()
-    
-    axios.defaults.headers.common['Authorization'] = `Bearer ${getValue(USER_IDENTIFIER_KEY)}`
-    
 
-    useEffect(()=>{
-    const action_login = async() => {
-        if(!appuser){
-            navigate('/')
-        }
+    const updatenavstate = () => {
+        console.log('nav update func called')
+        setNavExpanded(!navExpanded)
     }
-
-    action_login()
-    
-    },[navigate]) 
 
     const setActiveTab = (index) =>{
         const updatedMenus = menus.map((menu, menuIndex) => {
@@ -80,13 +57,16 @@ const Main = () => {
     }
 
     return (
-        <div className="canvas flex row left">
-            <NavBar menus={menus} expanded={navExpanded} menuClickHandler={setActiveTab}/>
-            <main className="component-view">
-            {/* {(appuser && !appuser.email_verified) && <VerifyEmail/>} */}
-                {getActiveComponent()}
-            </main> 
+        <div>
+            <div className="canvas flex row left">
+                <NavBar menus={menus} expanded={navExpanded} menuClickHandler={setActiveTab} updatenavstate={updatenavstate}/>
+                <main className="component-view">
+                    {/* {(appuser && !appuser.email_verified) && <VerifyEmail/>} */}
+                    {getActiveComponent()}
+                </main> 
+            </div>
         </div>
+        
         
     ) 
 } 

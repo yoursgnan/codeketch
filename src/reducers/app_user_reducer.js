@@ -1,12 +1,11 @@
 import {createSlice} from "@reduxjs/toolkit"
-import { redirect, useNavigate } from "react-router-dom"
 
 const appUserReducer = createSlice({
     name: 'appuser',
     initialState: null,
     reducers: {
-        async login(state,action){
-            console.log('user',action.payload)
+        login(state,action){
+            console.log('setting the  user',action.payload)
             return action.payload 
         },
         logout(state,action){
